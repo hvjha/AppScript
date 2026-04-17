@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f6fa;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Task Dashboard</h2>
+
+  <!-- LOGIN -->
+  <input type="email" id="email" placeholder="Enter your email" />
+
+  <!-- BUTTON -->
+  <button onclick="runTask()">Run Task</button>
+
+  <!-- STATUS -->
+  <div id="status"></div>
+</div>
+
+<script>
+
+// const WEB_APP_URL = "https://script.google.com/a/macros/jjprintindia.com/s/AKfycbxrjeDYAS6qX9_STWnHUbM0tXZtah936WTimYjAjIUl0tjU5cLwLgP9uc4N47WjVq7I-w/exec";   // 🔴 replace this
+// const WEB_APP_URL = "https://script.google.com/a/macros/jjprintindia.com/s/AKfycbx0wpGlv7SWVUCkG5ESRPxL6tJr38Sl-NPYb5Mt-LOG3ucH4je80r0bZVJJi4u6c9vldA/exec";   // 🔴 replace this
+// const TOKEN = "#@Harsh#@Aman@#$JJ@#%";               // 🔴 same as Apps Script
+
+function runTask() {
+  let btn = document.querySelector("button");
+  btn.disabled = true;
+
+  document.getElementById("status").innerText = "⏳ Running...";
+
+  google.script.run
+    .withSuccessHandler(function(res) {
+      btn.disabled = false;
+      document.getElementById("status").innerText = res.message;
+    })
+    .withFailureHandler(function(err) {
+      btn.disabled = false;
+      document.getElementById("status").innerText = "❌ Error";
+    })
+    .submitTask();
+}
+</script>
+
+</body>
+</html>
